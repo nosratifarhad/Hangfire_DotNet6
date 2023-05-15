@@ -1,8 +1,8 @@
-using ECommerce.Api.Domain;
-using ECommerce.Api.Infra.Repositories.ReadRepositories.ProductReadRepositories;
-using ECommerce.Api.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
-using ECommerce.Api.Services.Contract;
-using ECommerce.Api.Services;
+using HangfireWebApplication.Domain;
+using HangfireWebApplication.Infra.Repositories.ReadRepositories.ProductReadRepositories;
+using HangfireWebApplication.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
+using HangfireWebApplication.Services.Contract;
+using HangfireWebApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

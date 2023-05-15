@@ -1,6 +1,6 @@
-﻿using ECommerce.Api.Domain.Entitys;
+﻿using HangfireWebApplication.Domain.Entitys;
 
-namespace ECommerce.Api.Domain;
+namespace HangfireWebApplication.Domain;
 
 public interface IProductWriteRepository
 {

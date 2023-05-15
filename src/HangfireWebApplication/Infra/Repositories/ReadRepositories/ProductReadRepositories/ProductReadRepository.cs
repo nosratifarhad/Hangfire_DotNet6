@@ -1,7 +1,7 @@
-﻿using ECommerce.Api.Domain;
-using ECommerce.Api.Domain.Entitys;
+﻿using HangfireWebApplication.Domain;
+using HangfireWebApplication.Domain.Entitys;
 
-namespace ECommerce.Api.Infra.Repositories.ReadRepositories.ProductReadRepositories
+namespace HangfireWebApplication.Infra.Repositories.ReadRepositories.ProductReadRepositories
 {
     public class ProductReadRepository : IProductReadRepository
     {

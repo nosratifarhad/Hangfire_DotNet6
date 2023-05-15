@@ -1,11 +1,11 @@
-﻿using ECommerce.Api.Domain;
-using ECommerce.Api.Domain.Entitys;
-using ECommerce.Api.Services.Contract;
-using ECommerce.Api.ViewModels.ProductViewModels;
-using ECommerce.Service.InputModels.ProductInputModels;
+﻿using HangfireWebApplication.Domain;
+using HangfireWebApplication.Domain.Entitys;
+using HangfireWebApplication.InputModels.ProductInputModels;
+using HangfireWebApplication.Services.Contract;
+using HangfireWebApplication.ViewModels.ProductViewModels;
 using System.Globalization;
 
-namespace ECommerce.Api.Services
+namespace HangfireWebApplication.Services
 {
     public class ProductService : IProductService
     {
@@ -84,7 +84,7 @@ namespace ECommerce.Api.Services
 
             await IsExistProduct(inputModel.ProductId).ConfigureAwait(false);
 
-            var product= CreateProductEntityFromInputModel(inputModel);
+            var product = CreateProductEntityFromInputModel(inputModel);
 
             await _productWriteRepository.UpdateProductAsync(product).ConfigureAwait(false);
         }
@@ -167,7 +167,7 @@ namespace ECommerce.Api.Services
                      });
 
 
-            return (IEnumerable<ProductViewModel>)productViewModels;
+            return productViewModels;
         }
 
         private void ValidateProductName(string productName)

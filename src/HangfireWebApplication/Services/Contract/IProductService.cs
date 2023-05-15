@@ -1,7 +1,7 @@
-﻿using ECommerce.Api.ViewModels.ProductViewModels;
-using ECommerce.Service.InputModels.ProductInputModels;
+﻿using HangfireWebApplication.InputModels.ProductInputModels;
+using HangfireWebApplication.ViewModels.ProductViewModels;
 
-namespace ECommerce.Api.Services.Contract
+namespace HangfireWebApplication.Services.Contract
 {
     public interface IProductService
     {

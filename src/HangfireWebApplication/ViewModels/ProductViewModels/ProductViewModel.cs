@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Api.ViewModels.ProductViewModels
+﻿namespace HangfireWebApplication.ViewModels.ProductViewModels
 {
     public class ProductViewModel
     {

@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Service.InputModels.ProductInputModels;
+﻿namespace HangfireWebApplication.InputModels.ProductInputModels;
 
 public class CreateProductInputModel
 {
