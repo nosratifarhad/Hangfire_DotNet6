@@ -1,4 +1,4 @@
-﻿namespace ECommerce.Api.Domain.Entitys;
+﻿namespace HangfireWebApplication.Domain.Entitys;
 
 public class Product
 {
