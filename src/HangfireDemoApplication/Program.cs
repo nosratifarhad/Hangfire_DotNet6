@@ -31,7 +31,6 @@ var app = builder.Build();
 
 #region [ Hangfire ]
 
-//app.UseHangfireDashboard("/hangfire");
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
     IsReadOnlyFunc = (DashboardContext context) => true
