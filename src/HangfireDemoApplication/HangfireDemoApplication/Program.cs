@@ -1,45 +1,55 @@
 using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.SqlServer;
+using HangfireDemoApplication.CustomLoggers;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-#region []
+#region [ Hangfire Services ]
 
-// Add Hangfire services.
 builder.Services.AddHangfire(configuration => configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection")));
+        .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+        {
+            TryAutoDetectSchemaDependentOptions = false // Defaults to `true`
+        })
+        .UseLogProvider(new CustomLogProvider()));
 
-// Add the processing server as IHostedService
 builder.Services.AddHangfireServer();
 
-#endregion
+#endregion [ Hangfire Services ]
+
 
 var app = builder.Build();
 
-app.UseHangfireDashboard();
+#region [ Hangfire ]
 
-// Configure the HTTP request pipeline.
+//app.UseHangfireDashboard("/hangfire");
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    IsReadOnlyFunc = (DashboardContext context) => true
+});
+
+#endregion [ Hangfire ]
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseRouting();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-//app.MapControllers();
-//app.MapHangfireDashboard();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
