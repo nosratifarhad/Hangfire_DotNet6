@@ -10,7 +10,7 @@ public interface IFeeBackgroundJob
 
     Task RecurringAddOrUpdate(ProductFeeDto productFeeDto, CancellationToken cancellation);
 
-    Task RecurringRemoveIfExists(ProductFeeDto productFeeDto, CancellationToken cancellation);
+    Task RecurringRemoveIfExists();
 
     Task RecurringTrigger(ProductFeeDto productFeeDto, CancellationToken cancellation);
 
