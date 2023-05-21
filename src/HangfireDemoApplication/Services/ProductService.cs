@@ -3,6 +3,7 @@ using HangfireDemoApplication.Domain.Entitys;
 using HangfireDemoApplication.InputModels.ProductInputModels;
 using HangfireDemoApplication.Services.Contract;
 using HangfireDemoApplication.ViewModels.ProductViewModels;
+using HangfireDemoBackground.BackgroundJobs.Contracts;
 using System.Globalization;
 
 namespace HangfireDemoApplication.Services
@@ -10,6 +11,8 @@ namespace HangfireDemoApplication.Services
     public class ProductService : IProductService
     {
         #region Fields
+        private readonly IFeeBackgroundJob _feeBackgroundJob;
+
         private readonly IProductReadRepository _productReadRepository;
         private readonly IProductWriteRepository _productWriteRepository;
 
@@ -18,11 +21,13 @@ namespace HangfireDemoApplication.Services
         #region Ctor
 
         public ProductService(
+            IFeeBackgroundJob feeBackgroundJob,
             IProductReadRepository productReadRepository,
             IProductWriteRepository productWriteRepository)
         {
             _productReadRepository = productReadRepository;
             _productWriteRepository = productWriteRepository;
+            _feeBackgroundJob = feeBackgroundJob;
         }
 
         #endregion Ctor

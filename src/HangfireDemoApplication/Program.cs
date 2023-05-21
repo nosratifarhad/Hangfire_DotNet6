@@ -1,7 +1,15 @@
 using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.SqlServer;
-using HangfireDemoApplication.CustomLoggers;
+using HangfireDemoApplication.Domain;
+using HangfireDemoApplication.Infra.Repositories.ReadRepositories.ProductReadRepositories;
+using HangfireDemoApplication.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
+using HangfireDemoApplication.Services;
+using HangfireDemoApplication.Services.Contract;
+using HangfireDemoBackground.BackgroundJobs.Contracts;
+using HangfireDemoBackground.CustomLoggers;
+using HangfireDemoBackground.Wrappers;
+using HangfireDemoBackground.Wrappers.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +17,18 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+#region [ DI ]
+
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<IProductReadRepository, ProductReadRepository>();
+builder.Services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+
+builder.Services.AddScoped<IFeeWrapper, FeeWrapper>();
+builder.Services.AddScoped<IFeeBackgroundJob, FeeBackgroundJob>();
+
+#endregion [ DI ]
 
 #region [ Hangfire Services ]
 
