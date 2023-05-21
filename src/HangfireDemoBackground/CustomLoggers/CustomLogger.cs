@@ -1,19 +1,19 @@
 ﻿using Hangfire.Logging;
 
-namespace HangfireDemoApplication.CustomLoggers;
+namespace HangfireDemoBackground.CustomLoggers;
 
 public class CustomLogger : ILog
 {
     public string Name { get; set; }
 
-    public bool Log(Hangfire.Logging.LogLevel logLevel, Func<string> messageFunc, Exception exception = null)
+    public bool Log(LogLevel logLevel, Func<string> messageFunc, Exception exception = null)
     {
         if (messageFunc == null)
         {
-            return logLevel > Hangfire.Logging.LogLevel.Info;
+            return logLevel > LogLevel.Info;
         }
 
-        Console.WriteLine(String.Format("{0}: {1} {2} {3}", logLevel, Name, messageFunc(), exception));
+        Console.WriteLine(string.Format("{0}: {1} {2} {3}", logLevel, Name, messageFunc(), exception));
 
         return true;
     }
