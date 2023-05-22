@@ -1,7 +1,7 @@
 ﻿using HangfireDemoApplication.Domain;
 using HangfireDemoApplication.Domain.Entitys;
 
-namespace HangfireDemoApplication.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
+namespace HangfireDemoApplication.Infra.Repositories.WriteRepositories.PayrollWriteRepositories;
 
 public class PayrollWriteRepository : IPayrollWriteRepository
 {

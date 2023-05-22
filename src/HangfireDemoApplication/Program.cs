@@ -1,9 +1,8 @@
 using Hangfire;
-using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using HangfireDemoApplication.Domain;
-using HangfireDemoApplication.Infra.Repositories.ReadRepositories.ProductReadRepositories;
-using HangfireDemoApplication.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
+using HangfireDemoApplication.Infra.Repositories.ReadRepositories.PayrollReadRepositories;
+using HangfireDemoApplication.Infra.Repositories.WriteRepositories.PayrollWriteRepositories;
 using HangfireDemoApplication.Services;
 using HangfireDemoApplication.Services.Contract;
 using HangfireDemoBackground.BackgroundJobs;
@@ -40,7 +39,7 @@ builder.Services.AddHangfire(configuration => configuration
     .UseRecommendedSerializerSettings()
         .UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
         {
-            TryAutoDetectSchemaDependentOptions = false // Defaults to `true`
+            TryAutoDetectSchemaDependentOptions = false
         })
         .UseLogProvider(new CustomLogProvider()));
 
@@ -48,10 +47,19 @@ builder.Services.AddHangfireServer();
 
 #endregion [ Hangfire Services ]
 
-
 var app = builder.Build();
 
 #region [ Hangfire ]
+
+//var options = new BackgroundJobServerOptions
+//{
+//    ServerName = String.Format(
+//        "{0}.{1}",
+//        Environment.MachineName,
+//        Guid.NewGuid().ToString())
+//};
+
+//app.UseHangfireServer(options);
 
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
