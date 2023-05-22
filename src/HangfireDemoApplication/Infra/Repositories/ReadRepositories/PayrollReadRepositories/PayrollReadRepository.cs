@@ -1,7 +1,7 @@
 ﻿using HangfireDemoApplication.Domain;
 using HangfireDemoApplication.Domain.Entitys;
 
-namespace HangfireDemoApplication.Infra.Repositories.ReadRepositories.ProductReadRepositories;
+namespace HangfireDemoApplication.Infra.Repositories.ReadRepositories.PayrollReadRepositories;
 
 public class PayrollReadRepository : IPayrollReadRepository
 {
