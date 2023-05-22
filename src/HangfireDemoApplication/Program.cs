@@ -6,6 +6,7 @@ using HangfireDemoApplication.Infra.Repositories.ReadRepositories.ProductReadRep
 using HangfireDemoApplication.Infra.Repositories.WriteRepositories.ProductWriteRepositories;
 using HangfireDemoApplication.Services;
 using HangfireDemoApplication.Services.Contract;
+using HangfireDemoBackground.BackgroundJobs;
 using HangfireDemoBackground.BackgroundJobs.Contracts;
 using HangfireDemoBackground.CustomLoggers;
 using HangfireDemoBackground.Wrappers;
@@ -20,13 +21,14 @@ builder.Services.AddSwaggerGen();
 
 #region [ DI ]
 
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IPayrollService, PayrollService>();
 
-builder.Services.AddScoped<IProductReadRepository, ProductReadRepository>();
-builder.Services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
+builder.Services.AddScoped<IPayrollReadRepository, PayrollReadRepository>();
+builder.Services.AddScoped<IPayrollWriteRepository, PayrollWriteRepository>();
 
-builder.Services.AddScoped<IFeeWrapper, FeeWrapper>();
-builder.Services.AddScoped<IFeeBackgroundJob, FeeBackgroundJob>();
+builder.Services.AddScoped<IPayrollCalculatorJob, PayrollCalculatorJob>();
+builder.Services.AddScoped<IPayrollDirectDepositJob, PayrollDirectDepositJob>();
+builder.Services.AddScoped<IPayrollWrapper, PayrollWrapper>();
 
 #endregion [ DI ]
 
@@ -53,7 +55,7 @@ var app = builder.Build();
 
 app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
-    IsReadOnlyFunc = (DashboardContext context) => true
+    //IsReadOnlyFunc = (DashboardContext context) => true
 });
 
 #endregion [ Hangfire ]
