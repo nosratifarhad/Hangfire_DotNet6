@@ -14,19 +14,22 @@ public class PayrollService : IPayrollService
         _payrollDirectDepositJob = payrollDirectDepositJob;
     }
 
-    public Task CalculatePayroll()
+    public async Task CalculatePayroll()
     {
-        throw new NotImplementedException();
+        await CalculatePayrollByEnqueueJob();
+        await CalculatePayrollByScheduleJob();
+        await CalculatePayrollByTrigger();
+        await CalculatePayrollByRecurringJob();
+        await CalculatePayrollByRecurringJob();
+        await CalculatePayrollByBatchJob();
     }
 
-    public Task MonthlyPayrollDirectDeposit()
+    public async Task MonthlyPayrollDirectDeposit()
     {
-        throw new NotImplementedException();
     }
 
-    public Task PayrollDirectDeposit(int userId)
+    public async Task PayrollDirectDeposit(int userId)
     {
-        throw new NotImplementedException();
     }
 
     private Task CalculatePayrollByEnqueueJob() => _payrollCalculatorJob.CalculatePayrollByEnqueueJob();
