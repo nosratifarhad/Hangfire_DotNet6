@@ -18,10 +18,9 @@ public class PayrollService : IPayrollService
     {
         await CalculatePayrollByEnqueueJob();
         await CalculatePayrollByScheduleJob();
-        await CalculatePayrollByTrigger();
         await CalculatePayrollByRecurringJob();
-        await CalculatePayrollByRecurringJob();
-        await CalculatePayrollByBatchJob();
+        //await CalculatePayrollByTrigger();
+        //await CalculatePayrollByBatchJob();
     }
 
     public async Task MonthlyPayrollDirectDeposit()

@@ -25,20 +25,21 @@ public class PayrollCalculatorJob : IPayrollCalculatorJob
     public async Task CalculatePayrollByEnqueueJob()
     {
         string jobId =
-             BackgroundJob.Enqueue("CalculateFeeByEnqueueJob_Enqueue_type",
+             BackgroundJob.Enqueue("calculatefeebyenqueuejob_enqueue_type",
             () => _payrollWrapper.CalculatePayrollAsync());
 
-        BackgroundJob.Delete(jobId);
+        //BackgroundJob.Delete(jobId);
 
         await Task.Delay(1);
     }
 
     public async Task CalculatePayrollByScheduleJob()
     {
-        string jobId = BackgroundJob.Schedule("CalculateFeeByScheduleJob_schedule_Type",
+        string jobId =
+            BackgroundJob.Schedule("calculatefeebyschedulejob_schedule_type",
          () => _payrollWrapper.CalculatePayrollAsync(), TimeSpan.FromSeconds(10));
 
-        BackgroundJob.Delete(jobId);
+        //BackgroundJob.Delete(jobId);
 
         await Task.Delay(1);
     }
@@ -49,7 +50,7 @@ public class PayrollCalculatorJob : IPayrollCalculatorJob
         //Cron.Yearly()
         //string cronExp = "* * */8 * *";
 
-        RecurringJob.AddOrUpdate("CalculateFeeByRecurring_AddOrUpdate_Type",
+        RecurringJob.AddOrUpdate("calculatefeebyrecurring_addorupdate_type",
             () => _payrollWrapper.CalculatePayrollAsync(),
             Cron.Daily);
 
