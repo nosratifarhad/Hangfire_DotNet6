@@ -24,16 +24,21 @@ public class PayrollCalculatorJob : IPayrollCalculatorJob
 
     public async Task CalculatePayrollByEnqueueJob()
     {
-        BackgroundJob.Enqueue("CalculateFeeByEnqueueJob_Enqueue_type",
+        string jobId =
+             BackgroundJob.Enqueue("CalculateFeeByEnqueueJob_Enqueue_type",
             () => _payrollWrapper.CalculatePayrollAsync());
+
+        BackgroundJob.Delete(jobId);
 
         await Task.Delay(1);
     }
 
     public async Task CalculatePayrollByScheduleJob()
     {
-        BackgroundJob.Schedule("CalculateFeeByScheduleJob_schedule_Type",
-        () => _payrollWrapper.CalculatePayrollAsync(), TimeSpan.FromSeconds(10));
+        string jobId = BackgroundJob.Schedule("CalculateFeeByScheduleJob_schedule_Type",
+         () => _payrollWrapper.CalculatePayrollAsync(), TimeSpan.FromSeconds(10));
+
+        BackgroundJob.Delete(jobId);
 
         await Task.Delay(1);
     }
