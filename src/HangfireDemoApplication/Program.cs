@@ -1,15 +1,12 @@
 using Hangfire;
 using Hangfire.SqlServer;
-using HangfireDemoApplication.Domain;
-using HangfireDemoApplication.Infra.Repositories.ReadRepositories.PayrollReadRepositories;
-using HangfireDemoApplication.Infra.Repositories.WriteRepositories.PayrollWriteRepositories;
 using HangfireDemoApplication.Services;
 using HangfireDemoApplication.Services.Contract;
 using HangfireDemoBackground.BackgroundJobs;
 using HangfireDemoBackground.BackgroundJobs.Contracts;
 using HangfireDemoBackground.CustomLoggers;
-using HangfireDemoBackground.Wrappers;
-using HangfireDemoBackground.Wrappers.Contracts;
+using HangfireDemoBackground.Wrappers.CalculatePayrollServiceAdapter;
+using HangfireDemoBackground.Wrappers.CalculatePayrollServiceAdapter.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +17,10 @@ builder.Services.AddSwaggerGen();
 
 #region [ DI ]
 
-builder.Services.AddScoped<IPayrollService, PayrollService>();
+builder.Services.AddScoped<IJobManagesService, JobManagesService>();
 
-builder.Services.AddScoped<IPayrollReadRepository, PayrollReadRepository>();
-builder.Services.AddScoped<IPayrollWriteRepository, PayrollWriteRepository>();
-
-builder.Services.AddScoped<IPayrollCalculatorJob, PayrollCalculatorJob>();
-builder.Services.AddScoped<IPayrollDirectDepositJob, PayrollDirectDepositJob>();
-builder.Services.AddScoped<IPayrollWrapper, PayrollWrapper>();
+builder.Services.AddScoped<ICalculatorPayrollJob, PayrollCalculatorJob>();
+builder.Services.AddScoped<ICalculatePayrollServiceAdapter, CalculatePayrollServiceAdapter>();
 
 #endregion [ DI ]
 

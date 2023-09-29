@@ -15,4 +15,8 @@
     <ProjectReference Include="..\HangfireDemoBackground\HangfireDemoBackground.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
 </Project>
