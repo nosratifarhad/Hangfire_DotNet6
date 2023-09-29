@@ -1,12 +1,12 @@
 ﻿namespace HangfireDemoBackground.BackgroundJobs.Contracts;
 
-public interface IPayrollCalculatorJob
+public interface ICalculatorPayrollJob
 {
-    Task CalculatePayrollByEnqueueJob();
+    Task EnqueueJob();
 
-    Task CalculatePayrollByScheduleJob();
+    Task ScheduleJob();
 
-    Task CalculatePayrollByRecurringJob();
+    Task RecurringJob();
 
     Task CalculatePayrollByTrigger();
 
@@ -14,4 +14,5 @@ public interface IPayrollCalculatorJob
 
     Task RecurringRemoveIfExists();
 
+    Task RemoveJob(string jobId);
 }

@@ -1,56 +1,53 @@
 ﻿using Hangfire;
 using Hangfire.Storage;
 using HangfireDemoBackground.BackgroundJobs.Contracts;
-using HangfireDemoBackground.Wrappers.Contracts;
+using HangfireDemoBackground.Wrappers.CalculatePayrollServiceAdapter.Contracts;
 
 namespace HangfireDemoBackground.BackgroundJobs;
 
-public class PayrollCalculatorJob : IPayrollCalculatorJob
+public class PayrollCalculatorJob : ICalculatorPayrollJob
 {
     #region Fields
 
-    private readonly IPayrollWrapper _payrollWrapper;
+    private readonly ICalculatePayrollServiceAdapter _payrollWrapper;
 
     #endregion Fields
 
     #region Ctor
 
-    public PayrollCalculatorJob(IPayrollWrapper payrollWrapper)
+    public PayrollCalculatorJob(ICalculatePayrollServiceAdapter payrollWrapper)
     {
         _payrollWrapper = payrollWrapper;
     }
 
     #endregion Ctor
 
-    public async Task CalculatePayrollByEnqueueJob()
+    public async Task EnqueueJob()
     {
         string jobId =
              BackgroundJob.Enqueue("calculatefeebyenqueuejob_enqueue_type",
             () => _payrollWrapper.CalculatePayrollAsync());
 
-        //BackgroundJob.Delete(jobId);
-
         await Task.Delay(1);
     }
 
-    public async Task CalculatePayrollByScheduleJob()
+    public async Task ScheduleJob()
     {
         string jobId =
             BackgroundJob.Schedule("calculatefeebyschedulejob_schedule_type",
-         () => _payrollWrapper.CalculatePayrollAsync(), TimeSpan.FromSeconds(10));
-
-        //BackgroundJob.Delete(jobId);
+         () => _payrollWrapper.CalculatePayrollAsync(),
+         TimeSpan.FromSeconds(10));
 
         await Task.Delay(1);
     }
 
-    public async Task CalculatePayrollByRecurringJob()
+    public async Task RecurringJob()
     {
         //Cron.Daily
         //Cron.Yearly()
         //string cronExp = "* * */8 * *";
 
-        RecurringJob.AddOrUpdate("calculatefeebyrecurring_addorupdate_type",
+        Hangfire.RecurringJob.AddOrUpdate("calculatefeebyrecurring_addorupdate_type",
             () => _payrollWrapper.CalculatePayrollAsync(),
             Cron.Daily);
 
@@ -76,11 +73,15 @@ public class PayrollCalculatorJob : IPayrollCalculatorJob
 
             foreach (var recurringJob in connection.GetRecurringJobs())
             {
-                RecurringJob.RemoveIfExists(recurringJob.Id);
+                Hangfire.RecurringJob.RemoveIfExists(recurringJob.Id);
             }
         }
 
         await Task.Delay(1);
     }
 
+    public async Task RemoveJob(string jobId)
+    {
+        BackgroundJob.Delete(jobId);
+    }
 }
